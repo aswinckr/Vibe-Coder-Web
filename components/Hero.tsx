@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAppIdea } from "@/hooks/useAppIdea";
 
 const Hero = () => {
-  const [appIdea, setAppIdea] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
+  const { appIdea: savedAppIdea, setAppIdea, hasAppIdea, isLoaded, clearAppIdea } = useAppIdea();
 
   useEffect(() => {
     setMounted(true);
@@ -15,11 +17,21 @@ const Hero = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!appIdea.trim()) return;
+    if (!inputValue.trim()) return;
 
     setIsLoading(true);
-    localStorage.setItem("appIdea", appIdea.trim());
+    setAppIdea(inputValue.trim());
     router.push("/guide");
+  };
+
+  const handleContinue = () => {
+    setIsLoading(true);
+    router.push("/guide");
+  };
+
+  const handleStartFresh = () => {
+    clearAppIdea();
+    setInputValue("");
   };
 
   return (
@@ -80,42 +92,87 @@ const Hero = () => {
           </p>
         </div>
 
-        {/* Input form */}
-        <form
-          onSubmit={handleSubmit}
+        {/* Input form or Continue prompt */}
+        <div
           className={`max-w-2xl mx-auto mb-6 transition-all duration-700 delay-300 ${
             mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="gradient-border p-1 rounded-2xl">
-            <div className="flex flex-col sm:flex-row gap-3 bg-base-100 rounded-xl p-2">
-              <input
-                type="text"
-                placeholder="What app do you want to build?"
-                className="input input-lg flex-1 bg-transparent border-0 focus:outline-none text-base placeholder:text-base-content/30"
-                value={appIdea}
-                onChange={(e) => setAppIdea(e.target.value)}
-                required
-              />
-              <button
-                type="submit"
-                className="btn btn-primary btn-lg px-8 btn-glow"
-                disabled={isLoading || !appIdea.trim()}
-              >
-                {isLoading ? (
-                  <span className="loading loading-spinner loading-sm" />
-                ) : (
-                  <>
-                    <span>Start Building</span>
-                    <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          {isLoaded && hasAppIdea ? (
+            /* Continue where you left off */
+            <div className="gradient-border p-1 rounded-2xl">
+              <div className="bg-base-100 rounded-xl p-6 text-center">
+                <div className="mb-4">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/10 text-success text-sm font-medium mb-3">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                  </>
-                )}
-              </button>
+                    Project in progress
+                  </div>
+                  <p className="text-sm text-base-content/60 mb-2">Continue building:</p>
+                  <p className="text-lg font-medium text-base-content line-clamp-2">{savedAppIdea}</p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <button
+                    onClick={handleContinue}
+                    className="btn btn-primary btn-lg px-8 btn-glow"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <span className="loading loading-spinner loading-sm" />
+                    ) : (
+                      <>
+                        <span>Continue Building</span>
+                        <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    onClick={handleStartFresh}
+                    className="btn btn-ghost btn-lg"
+                    disabled={isLoading}
+                  >
+                    Start Fresh
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </form>
+          ) : (
+            /* New project input */
+            <form onSubmit={handleSubmit}>
+              <div className="gradient-border p-1 rounded-2xl">
+                <div className="flex flex-col sm:flex-row gap-3 bg-base-100 rounded-xl p-2">
+                  <input
+                    type="text"
+                    placeholder="What app do you want to build?"
+                    className="input input-lg flex-1 bg-transparent border-0 focus:outline-none text-base placeholder:text-base-content/30"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-lg px-8 btn-glow"
+                    disabled={isLoading || !inputValue.trim()}
+                  >
+                    {isLoading ? (
+                      <span className="loading loading-spinner loading-sm" />
+                    ) : (
+                      <>
+                        <span>Start Building</span>
+                        <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </form>
+          )}
+        </div>
 
         {/* Subtext */}
         <p
