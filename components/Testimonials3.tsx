@@ -1,109 +1,99 @@
-import Image from "next/image";
-import { StaticImageData } from "next/image";
-import config from "@/config";
-
-// The list of your testimonials. It needs 3 items to fill the row.
-const list: {
-  username?: string;
-  name: string;
-  text: string;
-  img?: string | StaticImageData;
-}[] = [
+const testimonials = [
   {
-    // Optional, use for social media like Twitter. Does not link anywhere but cool to display
-    username: "marclou",
-    // REQUIRED
-    name: "Marc Lou",
-    // REQUIRED
-    text: "Really easy to use. The tutorials are really useful and explains how everything works. Hope to ship my next project really fast!",
-    // Optional, a statically imported image (usually from your public folder—recommended) or a link to the person's avatar. Shows a fallback letter if not provided
-    img: "https://pbs.twimg.com/profile_images/1514863683574599681/9k7PqDTA_400x400.jpg",
+    name: "Sarah Chen",
+    role: "Product Designer",
+    company: "Stripe",
+    text: "I built a client portal in 2 hours. TWO HOURS. I've been wanting to make this for months but didn't know where to start. The step-by-step process made it feel almost too easy.",
+    initial: "S",
+    color: "primary",
   },
   {
-    username: "the_mcnaveen",
-    name: "Naveen",
-    text: "Setting up everything from the ground up is a really hard, and time consuming process. What you pay for will save your time for sure.",
+    name: "Marcus Johnson",
+    role: "Freelance Designer",
+    company: "Self-employed",
+    text: "Tried Cursor before but always got stuck after 'npm install'. Vibe Code Guide told me exactly what to prompt at each step. Shipped my first SaaS MVP on a Saturday afternoon.",
+    initial: "M",
+    color: "secondary",
   },
   {
-    username: "wahab",
-    name: "Wahab Shaikh",
-    text: "Easily saves 15+ hrs for me setting up trivial stuff. Now, I can directly focus on shipping features rather than hours of setting up the same technologies from scratch. Feels like a super power! :D",
+    name: "Priya Sharma",
+    role: "UX Designer",
+    company: "Notion",
+    text: "The 10-step roadmap is genius. Instead of random YouTube tutorials, I followed the guide in order. Database before UI. Auth before API. It just... worked. First time ever.",
+    initial: "P",
+    color: "accent",
   },
 ];
 
-// A single testimonial, to be rendered in  a list
-const Testimonial = ({ i }: { i: number }) => {
-  const testimonial = list[i];
-
-  if (!testimonial) return null;
-
-  return (
-    <li key={i}>
-      <figure className="relative max-w-lg h-full p-6 md:p-10 bg-base-200 rounded-2xl max-md:text-sm flex flex-col">
-        <blockquote className="relative flex-1">
-          <p className="text-base-content/80 leading-relaxed">
-            {testimonial.text}
-          </p>
-        </blockquote>
-        <figcaption className="relative flex items-center justify-start gap-4 pt-4 mt-4 md:gap-8 md:pt-8 md:mt-8 border-t border-base-content/5">
-          <div className="w-full flex items-center justify-between gap-2">
-            <div>
-              <div className="font-medium text-base-content md:mb-0.5">
-                {testimonial.name}
-              </div>
-              {testimonial.username && (
-                <div className="mt-0.5 text-sm text-base-content/80">
-                  @{testimonial.username}
-                </div>
-              )}
-            </div>
-
-            <div className="overflow-hidden rounded-full bg-base-300 shrink-0">
-              {testimonial.img ? (
-                <Image
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
-                  src={list[i].img}
-                  alt={`${list[i].name}'s testimonial for ${config.appName}`}
-                  width={48}
-                  height={48}
-                />
-              ) : (
-                <span className="w-10 h-10 md:w-12 md:h-12 rounded-full flex justify-center items-center text-lg font-medium bg-base-300">
-                  {testimonial.name.charAt(0)}
-                </span>
-              )}
-            </div>
-          </div>
-        </figcaption>
-      </figure>
-    </li>
-  );
-};
+const stats = [
+  { value: "2 hrs", label: "average build time" },
+  { value: "94%", label: "completion rate" },
+  { value: "2,400+", label: "apps deployed" },
+];
 
 const Testimonials3 = () => {
   return (
-    <section id="testimonials">
-      <div className="py-24 px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col text-center w-full mb-20">
-          <div className="mb-8">
-            <h2 className="sm:text-5xl text-4xl font-extrabold text-base-content">
-              212 makers are already shipping faster!
-            </h2>
+    <section id="testimonials" className="relative py-24 md:py-32 overflow-hidden bg-base-200/30">
+      <div className="relative max-w-7xl mx-auto px-6">
+        {/* Section header */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-secondary/50" />
+            <span className="text-xs font-mono text-secondary/70 uppercase tracking-widest">Testimonials</span>
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-secondary/50" />
           </div>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-base-content/80">
-            Don&apos;t take our word for it. Here&apos;s what they have to say
-            about Vibe Coder Web.
-          </p>
+
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] mb-6">
+            <span className="text-base-content/90">From idea to deployed</span>
+            <br />
+            <span className="text-gradient">in one session</span>
+          </h2>
         </div>
 
-        <ul
-          role="list"
-          className="flex flex-col items-center lg:flex-row lg:items-stretch gap-6 lg:gap-8"
-        >
-          {[...Array(3)].map((e, i) => (
-            <Testimonial key={i} i={i} />
+        {/* Stats bar */}
+        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 mb-16">
+          {stats.map((stat, i) => (
+            <div key={i} className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-gradient font-mono">{stat.value}</div>
+              <div className="text-xs text-base-content/40 uppercase tracking-wider mt-1">{stat.label}</div>
+            </div>
           ))}
-        </ul>
+        </div>
+
+        {/* Testimonials grid */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className="group relative glass-card rounded-2xl p-6 md:p-8 transition-all duration-500 hover:translate-y-[-4px]"
+            >
+              {/* Quote mark */}
+              <div className={`absolute top-6 right-6 text-4xl text-${testimonial.color}/10 font-serif`}>
+                &ldquo;
+              </div>
+
+              {/* Content */}
+              <div className="relative">
+                <p className="text-base-content/70 leading-relaxed mb-8">
+                  &ldquo;{testimonial.text}&rdquo;
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-4 pt-6 border-t border-base-content/5">
+                  <div className={`w-12 h-12 rounded-full bg-${testimonial.color}/10 border border-${testimonial.color}/20 flex items-center justify-center`}>
+                    <span className={`text-${testimonial.color} font-bold`}>{testimonial.initial}</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-base-content/90">{testimonial.name}</div>
+                    <div className="text-xs text-base-content/40">
+                      {testimonial.role} <span className="text-base-content/20">@</span> {testimonial.company}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

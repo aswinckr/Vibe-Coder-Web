@@ -3,85 +3,191 @@ import Image from "next/image";
 import config from "@/config";
 import logo from "@/app/icon.png";
 
-// Add the Footer to the bottom of your landing page and more.
-// The support link is connected to the config.js file. If there's no config.resend.supportEmail, the link won't be displayed.
-
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-base-200 border-t border-base-content/10">
-      <div className="max-w-7xl mx-auto px-8 py-24">
-        <div className=" flex lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
-          <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-            <Link
-              href="/#"
-              aria-current="page"
-              className="flex gap-2 justify-center md:justify-start items-center"
-            >
-              <Image
-                src={logo}
-                alt={`${config.appName} logo`}
-                priority={true}
-                className="w-6 h-6"
-                width={24}
-                height={24}
-              />
-              <strong className="font-extrabold tracking-tight text-base md:text-lg">
-                {config.appName}
-              </strong>
-            </Link>
+    <footer className="relative bg-base-200/50 border-t border-base-content/5">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-base-300/50 to-transparent pointer-events-none" />
 
-            <p className="mt-3 text-sm text-base-content/80">
-              {config.appDescription}
-            </p>
-            <p className="mt-3 text-sm text-base-content/60">
-              Copyright © {new Date().getFullYear()} - All rights reserved
-            </p>
+      <div className="relative max-w-7xl mx-auto px-6">
+        {/* Main footer content */}
+        <div className="py-16 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+            {/* Brand column */}
+            <div className="md:col-span-5">
+              <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-primary/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Image
+                    src={logo}
+                    alt={`${config.appName} logo`}
+                    className="relative w-10 h-10 rounded-xl"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <span className="font-serif text-xl text-base-content/90">{config.appName}</span>
+              </Link>
 
-{/* Built with badge removed - add your own branding here if needed */}
+              <p className="text-base-content/50 text-sm leading-relaxed max-w-sm mb-6">
+                Helping designers build functional web applications without writing code.
+                From Figma to deployed app in hours, not months.
+              </p>
+
+              {/* Newsletter or tagline */}
+              <div className="glass-card rounded-xl p-4 inline-block">
+                <p className="text-xs font-mono text-base-content/40">
+                  <span className="text-primary">const</span> mission = <span className="text-accent">&quot;empower designers&quot;</span>;
+                </p>
+              </div>
+            </div>
+
+            {/* Links columns */}
+            <div className="md:col-span-7">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+                {/* Product */}
+                <div>
+                  <h3 className="text-xs font-mono text-base-content/30 uppercase tracking-widest mb-4">
+                    Product
+                  </h3>
+                  <ul className="space-y-3">
+                    <li>
+                      <Link href="/#features" className="text-sm text-base-content/60 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                        <span>Features</span>
+                        <svg className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/#pricing" className="text-sm text-base-content/60 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                        <span>Pricing</span>
+                        <svg className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/#testimonials" className="text-sm text-base-content/60 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                        <span>Testimonials</span>
+                        <svg className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/#faq" className="text-sm text-base-content/60 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                        <span>FAQ</span>
+                        <svg className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Resources */}
+                <div>
+                  <h3 className="text-xs font-mono text-base-content/30 uppercase tracking-widest mb-4">
+                    Resources
+                  </h3>
+                  <ul className="space-y-3">
+                    <li>
+                      <Link href="/guide" className="text-sm text-base-content/60 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                        <span>Start Guide</span>
+                        <svg className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </li>
+                    {config.resend.supportEmail && (
+                      <li>
+                        <a
+                          href={`mailto:${config.resend.supportEmail}`}
+                          className="text-sm text-base-content/60 hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                        >
+                          <span>Support</span>
+                          <svg className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+
+                {/* Legal */}
+                <div>
+                  <h3 className="text-xs font-mono text-base-content/30 uppercase tracking-widest mb-4">
+                    Legal
+                  </h3>
+                  <ul className="space-y-3">
+                    <li>
+                      <Link href="/privacy-policy" className="text-sm text-base-content/60 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                        <span>Privacy</span>
+                        <svg className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/tos" className="text-sm text-base-content/60 hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                        <span>Terms</span>
+                        <svg className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="flex-grow flex flex-wrap justify-center -mb-10 md:mt-0 mt-10 text-center">
-            <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-              <div className="footer-title font-semibold text-base-content tracking-widest text-sm md:text-left mb-3">
-                LINKS
-              </div>
+        </div>
 
-              <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
-                {config.resend.supportEmail && (
-                  <a
-                    href={`mailto:${config.resend.supportEmail}`}
-                    target="_blank"
-                    className="link link-hover"
-                    aria-label="Contact Support"
-                  >
-                    Support
-                  </a>
-                )}
-                <Link href="/#pricing" className="link link-hover">
-                  Pricing
-                </Link>
-                <Link href="/blog" className="link link-hover">
-                  Blog
-                </Link>
-                <a href="/#" target="_blank" className="link link-hover">
-                  Affiliates
-                </a>
-              </div>
-            </div>
+        {/* Bottom bar */}
+        <div className="py-6 border-t border-base-content/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-base-content/30 text-xs font-mono">
+            © {currentYear} {config.appName}. All rights reserved.
+          </p>
 
-            <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-              <div className="footer-title font-semibold text-base-content tracking-widest text-sm md:text-left mb-3">
-                LEGAL
-              </div>
-
-              <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
-                <Link href="/tos" className="link link-hover">
-                  Terms of services
-                </Link>
-                <Link href="/privacy-policy" className="link link-hover">
-                  Privacy policy
-                </Link>
-              </div>
-            </div>
+          {/* Social links */}
+          <div className="flex items-center gap-1">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg text-base-content/30 hover:text-primary hover:bg-primary/5 transition-all"
+              aria-label="Twitter"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg text-base-content/30 hover:text-primary hover:bg-primary/5 transition-all"
+              aria-label="GitHub"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+              </svg>
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg text-base-content/30 hover:text-primary hover:bg-primary/5 transition-all"
+              aria-label="LinkedIn"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
           </div>
         </div>
       </div>

@@ -1,103 +1,115 @@
-import config from "@/config";
-import ButtonCheckout from "./ButtonCheckout";
-
-// <Pricing/> displays the pricing plans for your app
-// It's your Stripe config in config.js.stripe.plans[] that will be used to display the plans
-// <ButtonCheckout /> renders a button that will redirect the user to Stripe checkout called the /api/stripe/create-checkout API endpoint with the correct priceId
-
 const Pricing = () => {
+  const freeFeatures = [
+    "Full 10-step guide access",
+    "Unlimited prompt generation",
+    "All phases: Setup → Deploy",
+    "Copy-to-clipboard",
+    "Local progress tracking",
+  ];
+
+  const proFeatures = [
+    "Everything in Free",
+    "Unlimited projects",
+    "Cloud sync across devices",
+    "Prompt history",
+    "Priority API access",
+    "Early access to features",
+  ];
+
   return (
-    <section className="bg-base-200 overflow-hidden" id="pricing">
-      <div className="py-24 px-8 max-w-5xl mx-auto">
-        <div className="flex flex-col text-center w-full mb-20">
-          <p className="font-medium text-primary mb-8">Pricing</p>
-          <h2 className="font-bold text-3xl lg:text-5xl tracking-tight">
-            Save hours of repetitive code and ship faster!
+    <section id="pricing" className="relative py-24 md:py-32 overflow-hidden">
+      <div className="relative max-w-7xl mx-auto px-6">
+        {/* Section header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-warning/50" />
+            <span className="text-xs font-mono text-warning/70 uppercase tracking-widest">Pricing</span>
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-warning/50" />
+          </div>
+
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] mb-6">
+            <span className="text-base-content/90">Start building</span>
+            <br />
+            <span className="text-gradient">for free</span>
           </h2>
+
+          <p className="text-lg text-base-content/50">
+            Everything you need to build your first app. No credit card required.
+          </p>
         </div>
 
-        <div className="relative flex justify-center flex-col lg:flex-row items-center lg:items-stretch gap-8">
-          {config.stripe.plans.map((plan) => (
-            <div key={plan.priceId} className="relative w-full max-w-lg">
-              {plan.isFeatured && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                  <span
-                    className={`badge text-xs text-primary-content font-semibold border-0 bg-primary`}
-                  >
-                    POPULAR
+        {/* Pricing cards */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {/* Free Plan */}
+          <div className="glass-card rounded-2xl p-8 relative overflow-hidden group">
+            <div className="relative">
+              <div className="mb-6">
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-mono bg-base-content/5 text-base-content/50 mb-4">
+                  FREE
+                </span>
+                <h3 className="text-2xl font-bold text-base-content/90 mb-2">Free Forever</h3>
+                <p className="text-sm text-base-content/50">Perfect for your first app</p>
+              </div>
+
+              <div className="mb-8">
+                <span className="text-5xl font-bold text-base-content/90 font-mono">$0</span>
+                <span className="text-base-content/40 ml-2">/forever</span>
+              </div>
+
+              <ul className="space-y-4 mb-8">
+                {freeFeatures.map((feature, i) => (
+                  <li key={i} className="flex items-center gap-3 text-sm text-base-content/70">
+                    <span className="text-success">✓</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <a href="#hero" className="btn btn-primary w-full btn-glow">
+                Start Building Free
+              </a>
+            </div>
+          </div>
+
+          {/* Pro Plan */}
+          <div className="gradient-border rounded-2xl relative overflow-hidden">
+            <div className="bg-base-100 rounded-2xl p-8 h-full relative">
+              {/* Coming soon badge */}
+              <div className="absolute -top-px left-1/2 -translate-x-1/2">
+                <span className="inline-block px-4 py-1.5 rounded-b-lg text-xs font-mono bg-gradient-to-r from-primary to-secondary text-white">
+                  COMING SOON
+                </span>
+              </div>
+
+              <div className="relative pt-4">
+                <div className="mb-6">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-mono bg-primary/10 text-primary mb-4">
+                    PRO
                   </span>
+                  <h3 className="text-2xl font-bold text-base-content/90 mb-2">Pro</h3>
+                  <p className="text-sm text-base-content/50">For power users shipping multiple apps</p>
                 </div>
-              )}
 
-              {plan.isFeatured && (
-                <div
-                  className={`absolute -inset-[1px] rounded-[9px] bg-primary z-10`}
-                ></div>
-              )}
-
-              <div className="relative flex flex-col h-full gap-5 lg:gap-8 z-10 bg-base-100 p-8 rounded-lg">
-                <div className="flex justify-between items-center gap-4">
-                  <div>
-                    <p className="text-lg lg:text-xl font-bold">{plan.name}</p>
-                    {plan.description && (
-                      <p className="text-base-content/80 mt-2">
-                        {plan.description}
-                      </p>
-                    )}
-                  </div>
+                <div className="mb-8">
+                  <span className="text-5xl font-bold text-gradient font-mono">$19</span>
+                  <span className="text-base-content/40 ml-2">/month</span>
                 </div>
-                <div className="flex gap-2">
-                  {plan.priceAnchor && (
-                    <div className="flex flex-col justify-end mb-[4px] text-lg ">
-                      <p className="relative">
-                        <span className="absolute bg-base-content h-[1.5px] inset-x-0 top-[53%]"></span>
-                        <span className="text-base-content/80">
-                          ${plan.priceAnchor}
-                        </span>
-                      </p>
-                    </div>
-                  )}
-                  <p className={`text-5xl tracking-tight font-extrabold`}>
-                    ${plan.price}
-                  </p>
-                  <div className="flex flex-col justify-end mb-[4px]">
-                    <p className="text-xs text-base-content/60 uppercase font-semibold">
-                      USD
-                    </p>
-                  </div>
-                </div>
-                {plan.features && (
-                  <ul className="space-y-2.5 leading-relaxed text-base flex-1">
-                    {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          className="w-[18px] h-[18px] opacity-80 shrink-0"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
 
-                        <span>{feature.name} </span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <div className="space-y-2">
-                  <ButtonCheckout priceId={plan.priceId} />
+                <ul className="space-y-4 mb-8">
+                  {proFeatures.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-3 text-sm text-base-content/70">
+                      <span className="text-primary">✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
 
-                  <p className="flex items-center justify-center gap-2 text-sm text-center text-base-content/80 font-medium relative">
-                    Pay once. Access forever.
-                  </p>
-                </div>
+                <button className="btn btn-outline w-full opacity-50 cursor-not-allowed" disabled>
+                  Join Waitlist
+                </button>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
