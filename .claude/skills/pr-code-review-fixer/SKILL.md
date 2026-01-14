@@ -180,15 +180,15 @@ Create a detailed report in markdown table format showing all issues and their r
 
 ## Extracted Learnings
 
-Added [N] new patterns to `.claude/docs/learnings.md`:
+Added [N] new patterns to `.claude/LEARNINGS.md`:
 - Don't use array index as React keys → Use unique IDs
-- Don't access Next.js params synchronously → Await params
+- Don't access Next.js params synchronously → Await params  
 - Don't hardcode URLs → Use NEXT_PUBLIC_SITE_URL env var
 - Don't forget useEffect cleanup → Add return function for timers/subscriptions
 
 These learnings have been committed and will help prevent similar issues in future code.
 
-Updated Claude instructions in `CLAUDE.md` to always reference learnings before writing code.
+Updated Claude instructions in `.claude/CLAUDE.md` to always reference learnings before writing code.
 
 ## Next Steps
 
@@ -239,19 +239,19 @@ Review all fixed issues and identify **repeatable patterns** that indicate syste
 - Very specific to this particular PR's context
 - Already well-documented in standard framework docs
 
-#### 9.2: Create/Update .claude/docs/learnings.md
+#### 9.2: Create/Update .claude/LEARNINGS.md
 
-Create the `.claude/docs` directory and `learnings.md` file if they don't exist:
+Create the `.claude` directory and `LEARNINGS.md` file if they don't exist:
 
 ```bash
-# Create .claude/docs directory in project root
-mkdir -p .claude/docs
+# Create .claude directory in project root
+mkdir -p .claude
 
-# Create or update learnings.md
-# File location: .claude/docs/learnings.md
+# Create or update LEARNINGS.md
+# File location: .claude/LEARNINGS.md
 ```
 
-**learnings.md Structure**:
+**LEARNINGS.md Structure**:
 
 ```markdown
 # Project-Specific Code Learnings
@@ -313,17 +313,17 @@ export default async function Page({ params }) {
 - Otherwise, add new section at the appropriate category
 - Update "Last Updated" date
 
-#### 9.3: Ensure learnings.md is Referenced in Claude Instructions
+#### 9.3: Ensure LEARNINGS.md is Referenced in Claude Instructions
 
 Check for and update project documentation files that guide Claude's behavior:
 
 **Files to check** (in order of preference):
-1. `CLAUDE.md` (root)
-2. `.claude/CLAUDE.md`
-3. `CLAUDE-INSTRUCTIONS.md` (root)
-4. `.claude/CLAUDE-INSTRUCTIONS.md`
+1. `.claude/CLAUDE.md`
+2. `.claude/CLAUDE-INSTRUCTIONS.md`
+3. `CLAUDE.md` (root)
+4. `CLAUDE-INSTRUCTIONS.md` (root)
 
-**If none exist**: Create `CLAUDE.md` in the root
+**If none exist**: Create `.claude/CLAUDE.md`
 
 **Add/Update Reference Section**:
 
@@ -332,7 +332,7 @@ Add this section near the top of the file (after any overview/introduction):
 ```markdown
 ## Code Quality and Best Practices
 
-**CRITICAL**: Before writing any code, always review `.claude/docs/learnings.md` for project-specific patterns and common mistakes to avoid. This file contains real issues discovered through code reviews and must be followed to maintain code quality.
+**CRITICAL**: Before writing any code, always review `.claude/LEARNINGS.md` for project-specific patterns and common mistakes to avoid. This file contains real issues discovered through code reviews and must be followed to maintain code quality.
 
 Key learnings to always check:
 - React/Next.js patterns (keys, hooks, async params)
@@ -341,7 +341,7 @@ Key learnings to always check:
 - Performance optimization patterns
 - Project-specific conventions
 
-[Link to learnings.md](.claude/docs/learnings.md)
+[Link to LEARNINGS.md](.claude/LEARNINGS.md)
 ```
 
 **If the section already exists**:
@@ -353,7 +353,7 @@ Key learnings to always check:
 After updating, read the file to ensure:
 - The reference is prominent (early in the file)
 - It emphasizes the importance (use words like "CRITICAL", "ALWAYS", "MUST")
-- It links to the correct path (.claude/docs/learnings.md)
+- It links to the correct path
 
 #### 9.4: Commit the Learning Updates
 
@@ -361,13 +361,13 @@ After creating/updating the learning files:
 
 ```bash
 # Stage the new/updated files
-git add .claude/docs/learnings.md
-git add CLAUDE.md  # or whichever file was updated
+git add .claude/LEARNINGS.md
+git add .claude/CLAUDE.md  # or whichever file was updated
 
 # Commit separately from the fixes (for clarity)
 git commit -m "docs: update code learnings from PR review
 
-- Added [N] new learnings to .claude/docs/learnings.md
+- Added [N] new learnings to .claude/LEARNINGS.md
 - Updated Claude instructions to reference learnings
 - Patterns extracted from PR #[N] code review
 
@@ -384,7 +384,7 @@ Add a section to the report:
 ```markdown
 ## Extracted Learnings
 
-Added [N] new patterns to `.claude/docs/learnings.md`:
+Added [N] new patterns to `.claude/LEARNINGS.md`:
 - [Pattern 1 title]
 - [Pattern 2 title]
 - [Pattern 3 title]
